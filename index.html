@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!-- Imports jQuery-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+		<!-- Imports Plugin-->
+		
+		<!-- Begin slickgrid -->
+		<link rel="stylesheet" href="slickgrid/slick.grid.css"/>
+		<script src="slickgrid/lib/jquery.event.drag-2.2.js"></script>
+		<script src="slickgrid/slick.core.js"></script>
+		<script src="slickgrid/slick.grid.js"></script>
+		<script src="slickgrid/slick.dataview.js"></script>
+		<script src="slickgrid/plugins/slick.rowselectionmodel.js"></script>
+		<script src="slickgrid/controls/slick.pager.js"></script>
+		<link rel="stylesheet" href="slickgrid/controls/slick.pager.css" type="text/css" />
+		<link rel="stylesheet" href="slickgrid/slick-default-theme.css" type="text/css" />
+		<!-- End slickgrid -->
+		
+		<!-- Begin gdautocomplete -->
+		<link rel="stylesheet" href="giomo.gdautocomplete.css"/>
+		<script src="giomo.gdautocomplete.js"></script>
+		<!-- End gdautocomplete -->
+	<script>
+	  $(function() {
+		//
+		var json = [
+			{"value": 1, "label": "aaa"},
+			{"value": 2, "label": "bbb"},
+		];
+		//
+		var $gdautocomplete = $( "#my-div" ).gdautocomplete({
+			multiSelect : true,
+			columns : [
+				{id: "description", name: "Description", field: "keyView"},			
+				{id: "situation", name: "Situation", field: "situation", formatter: function(row, cell, value, columnDef, dataContext){
+					if (dataContext.situation == 'A')
+						return 'Active';
+					return 'Inactive';
+				}}
+			],
+			titleDialog : "Title dialog",
+			buttonConfirmText : "Confirm",
+			buttonBackText : "Back",
+			urlGetItensAutocomplete : "datasource.json",
+			urlGetItensGrid : "datasourceGrid.json"
+			/*,
+			reponseKey : "itens"*/
+		});
+		
+		$("#setValues").button().click(function(){
+			$gdautocomplete.gdautocomplete("setValues", json);
+		});
+		//
+		$("#getValues").button().click(function(){
+			alert($gdautocomplete.gdautocomplete("getValues"));
+		});
+	  });
+  </script>
+	</head>
+	<body>
+		<div class="gd-div-container">
+			<div id="my-div"></div>
+		</div>
+		<br><br>
+		<div class="gd-btn-examples-container">
+		
+			<button id="getValues"/>getValues</button>
+			<button id="setValues"/>setValues</button>			
+		</div>
+	</body>
+</html>
